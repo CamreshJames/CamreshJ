@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James Mwangi Njenga - Personal Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="images/milogo.jpg" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #0e98ba;
+            color: white;
+        }
+        #sketch-holder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .content-overlay {
+            background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.9) 100%);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div id="sketch-holder"></div>
+    <div class="flex flex-col lg:flex-row min-h-screen relative">
+        <!-- Navigation bar -->
+        <nav class="lg:fixed lg:left-0 lg:top-0 lg:bottom-0 w-full lg:w-64 bg-white bg-opacity-90 shadow-lg p-4 lg:overflow-y-auto z-10">
+            <div class="flex items-center justify-between lg:flex-col lg:items-start mb-8">
+                <img src="images/milogo.jpg" alt="Logo" class="w-12 h-12 rounded-full mb-4">
+                <div class="text-2xl font-bold">James M. Njenga</div>
+                <button class="lg:hidden" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <ul class="hidden lg:block" id="navMenu">
+                <li><a href="#home" class="block py-2 px-4 nav-link rounded transition duration-300"><i class="fas fa-home mr-2"></i>Home</a></li>
+                <li><a href="#about" class="block py-2 px-4 nav-link rounded transition duration-300"><i class="fas fa-user mr-2"></i>About</a></li>
+                <li><a href="#skills" class="block py-2 px-4 nav-link rounded transition duration-300"><i class="fas fa-cogs mr-2"></i>Skills</a></li>
+                <li><a href="#experience" class="block py-2 px-4 nav-link rounded transition duration-300"><i class="fas fa-briefcase mr-2"></i>Experience</a></li>
+                <li><a href="#education" class="block py-2 px-4 nav-link rounded transition duration-300"><i class="fas fa-graduation-cap mr-2"></i>Education</a></li>
+                <li><a href="#contact" class="block py-2 px-4 nav-link rounded transition duration-300"><i class="fas fa-envelope mr-2"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main content -->
+        <main class="flex-grow lg:ml-64 p-8 relative z-10">
+            <div class="content-overlay rounded-lg shadow-lg p-8">
+                <section id="home" class="mb-16">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <img src="images/download jmn-me.png" alt="James Mwangi Njenga" class="w-48 h-48 rounded-full mb-4 md:mb-0 md:mr-8">
+                        <div>
+                            <h1 class="text-4xl font-bold mb-4">Welcome to My Portfolio</h1>
+                            <p class="text-xl text-gray-600">Information Technology Professional</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="about" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-4">About Me</h2>
+                    <p class="text-gray-700">I am a passionate and forward-thinking individual driven by a desire to create innovative technology solutions that disrupt and improve lives. With a strong foundation in information technology and software engineering from Meru University of Science and Technology, I possess a unique blend of technical expertise and creative problem-solving abilities.</p>
+                </section>
+
+                <section id="skills" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-4">Skills</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-white bg-opacity-75 p-4 rounded-lg">
+                            <i class="fas fa-code text-4xl text-[#0e98ba] mb-2"></i>
+                            <h3 class="font-semibold mb-2">Programming Languages</h3>
+                            <p class="text-sm text-gray-600">C, C++, C#, Python, HTML, CSS, JavaScript</p>
+                        </div>
+                        <div class="bg-white bg-opacity-75 p-4 rounded-lg">
+                            <i class="fas fa-brain text-4xl text-[#0e98ba] mb-2"></i>
+                            <h3 class="font-semibold mb-2">Problem Solving</h3>
+                            <p class="text-sm text-gray-600">Analytical and critical thinking</p>
+                        </div>
+                        <div class="bg-white bg-opacity-75 p-4 rounded-lg">
+                            <i class="fas fa-comments text-4xl text-[#0e98ba] mb-2"></i>
+                            <h3 class="font-semibold mb-2">Communication</h3>
+                            <p class="text-sm text-gray-600">Effective technical communication</p>
+                        </div>
+                        <div class="bg-white bg-opacity-75 p-4 rounded-lg">
+                            <i class="fas fa-robot text-4xl text-[#0e98ba] mb-2"></i>
+                            <h3 class="font-semibold mb-2">AI Prompting</h3>
+                            <p class="text-sm text-gray-600">Skilled in AI technology interactions</p>
+                        </div>
+                        <div class="bg-white bg-opacity-75 p-4 rounded-lg">
+                            <i class="fas fa-laptop-code text-4xl text-[#0e98ba] mb-2"></i>
+                            <h3 class="font-semibold mb-2">Frameworks</h3>
+                            <p class="text-sm text-gray-600">Django and .NET</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="experience" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-4">Experience</h2>
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-semibold">Digital Marketing Intern</h3>
+                        <p class="italic text-gray-600">Context Experts Agencies LTD(june 2024 - now)</p>
+                        <ul class="list-disc list-inside mt-2 text-gray-700">
+                            <li> Still Learning</li>
+                        </ul>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-semibold">Software Development Intern</h3>
+                        <p class="italic text-gray-600">Machini Technologies, Nairobi (May 2023 - Jul 2023)</p>
+                        <ul class="list-disc list-inside mt-2 text-gray-700">
+                            <li>Developed a school management system using C# and Postgres database</li>
+                            <li>Created a Point of Sale System (POS) using Django framework</li>
+                            <li>Learned to use work management tools like Trello board</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="education" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-4">Education</h2>
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-semibold">Bachelor of Science Information Technology</h3>
+                        <p class="text-gray-600">Meru University of Science and Technology (Nov 2020 - Present)</p>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-semibold">KCSE Certification</h3>
+                        <p class="text-gray-600">Kangui Boys High School (Feb 2016 - Dec 2019)</p>
+                    </div>
+                </section>
+
+                <section id="contact" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-4">Contact Me</h2>
+                    <div class="flex flex-col md:flex-row md:space-x-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-envelope text-[#0e98ba] mr-2"></i>
+                            <p>camreshjames@gmail.com</p>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-phone text-[#0e98ba] mr-2"></i>
+                            <p>0741593506</p>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fab fa-twitter text-[#0e98ba] mr-2"></i>
+                            <a href="https://x.com/CamreshJames" class="text-blue-500 hover:underline">@camreshJames</a>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fab fa-linkedin text-[#0e98ba] mr-2"></i>
+                            <a href="https://www.linkedin.com/in/james-mwangi-njenga-23694726b/" class="text-blue-500 hover:underline">James Mwangi Njenga</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white bg-opacity-90 text-center p-4 mt-16 shadow-lg relative z-10">
+        <p>&copy; 2024 James Mwangi Njenga. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('hidden');
+        });
+
+        // Highlight active navigation link
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        function setActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveLink);
+        window.addEventListener('load', setActiveLink);
+
+        // p5.js sketch
+        let sketch = function(p) {
+            // Center point coordinates
+            let centerX = 0.0, centerY = 0.0;
+
+            // Radius and rotation angle of the polygon
+            let radius = 45, rotAngle = -90;
+
+            // Acceleration values for the center point
+            let accelX = 0.0, accelY = 0.0;
+
+            // Delta values for the center point
+            let deltaX = 0.0, deltaY = 0.0;
+
+            // Springing and damping constants for the center point movement
+            let springing = 0.0009, damping = 0.98;
+
+            // Number of nodes (vertices) in the polygon
+            let nodes = 5;
+
+            // Arrays to store node coordinates, angles, and frequencies
+            let nodeStartX = [];
+            let nodeStartY = [];
+            let nodeX = [];
+            let nodeY = [];
+            let angle = [];
+            let frequency = [];
+
+            // Organic constant for controlling curve tightness
+            let organicConstant = 1.0;
+
+            // Setup function
+            p.setup = function() {
+                let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+                canvas.parent('sketch-holder');
+
+                // Center the shape in the window
+                centerX = p.width / 2;
+                centerY = p.height / 2;
+
+                // Initialize arrays to 0
+                for (let i = 0; i < nodes; i++) {
+                    nodeStartX[i] = 0;
+                    nodeStartY[i] = 0;
+                    nodeY[i] = 0;
+                    nodeY[i] = 0;
+                    angle[i] = 0;
+                }
+
+                // Initialize frequencies for corner nodes
+                for (let i = 0; i < nodes; i++) {
+                    frequency[i] = p.random(5, 12);
+                }
+
+                p.noStroke();
+                p.frameRate(30);
+            }
+
+            // Draw function
+            p.draw = function() {
+                // Create gradient background
+                let c1 = p.color(14, 152, 186); // #0e98ba
+                let c2 = p.color(255, 255, 255); // white
+                for(let y = 0; y < p.height; y++){
+                    let n = p.map(y, 0, p.height, 0, 1);
+                    let newc = p.lerpColor(c1, c2, n);
+                    p.stroke(newc);
+                    p.line(0, y, p.width, y);
+                }
+
+                // Add slight fade effect
+                p.fill(255, 5);
+                p.rect(0, 0, p.width, p.height);
+
+                drawShape();
+                moveShape();
+            }
+
+            function drawShape() {
+        // Calculate node starting locations
+        for (let i = 0; i < nodes; i++) {
+          nodeStartX[i] = centerX + p.cos(p.radians(rotAngle)) * radius;
+          nodeStartY[i] = centerY + p.sin(p.radians(rotAngle)) * radius;
+          rotAngle += 360.0 / nodes;
+        }
+
+        // Draw the polygon
+        p.curveTightness(organicConstant);
+        p.fill(255, 0, 0); // Set the fill color to red
+        p.beginShape();
+        for (let i = 0; i < nodes; i++) {
+          p.curveVertex(nodeX[i], nodeY[i]);
+        }
+        for (let i = 0; i < nodes - 1; i++) {
+          p.curveVertex(nodeX[i], nodeY[i]);
+        }
+        p.endShape(p.CLOSE);
+      }
+
+      function moveShape() {
+        // Move the center point
+        deltaX = p.mouseX - centerX;
+        deltaY = p.mouseY - centerY;
+
+        // Create springing effect
+        deltaX *= springing;
+        deltaY *= springing;
+        accelX += deltaX;
+        accelY += deltaY;
+
+        // Move the center point
+        centerX += accelX;
+        centerY += accelY;
+
+        // Slow down the springing
+        accelX *= damping;
+        accelY *= damping;
+
+        // Change curve tightness
+        organicConstant = 1 - ((Math.abs(accelX) + Math.abs(accelY)) * 0.1);
+
+        // Move the nodes
+        for (let i = 0; i < nodes; i++) {
+          nodeX[i] = nodeStartX[i] + p.sin(p.radians(angle[i])) * (accelX * 2);
+          nodeY[i] = nodeStartY[i] + p.sin(p.radians(angle[i])) * (accelY * 2);
+          angle[i] += frequency[i];
+        }
+      }
+    };
+
+    let mySketch = new p5(sketch);
+</script>
+</body>
+</html>
