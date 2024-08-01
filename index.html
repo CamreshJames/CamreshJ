@@ -297,7 +297,19 @@
             </div>
         </main>
     </div>
-
+    <div id="countdown-container" class="fixed right-4 top-4 bg-hacker-dark p-4 rounded-lg shadow-lg z-50 cursor-pointer">
+        <p class="text-hacker-green text-sm">Graduating in:</p>
+        <p id="countdown" class="text-hacker-green text-lg font-bold"></p>
+    </div>
+    <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-hacker-dark p-8 rounded-lg max-w-2xl w-full max-h-full overflow-y-auto">
+            <h3 id="modal-title" class="text-2xl font-bold mb-4 text-hacker-green"></h3>
+            <img id="modal-image" src="" alt="Project Image" class="w-full h-64 object-cover mb-4 rounded">
+            <p id="modal-description" class="text-hacker-green mb-4"></p>
+            <div id="modal-tech" class="mb-4"></div>
+            <button id="modal-close" class="bg-hacker-green text-black px-4 py-2 rounded hover:bg-green-600 transition-colors">Close</button>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="bg-hacker-dark text-center p-4 mt-16 shadow-lg relative z-10">
         <p>&copy; 2024 James Mwangi Njenga. All rights reserved.</p>
@@ -440,5 +452,145 @@
             contactForm.reset();
         });
     </script>
+    <script>
+        // Graduation countdown
+        const graduationDate = new Date("2024-10-04T00:00:00").getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = graduationDate - now;
+        
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "Graduated!";
+            }
+        }
+        
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // Move countdown container away from cursor
+        const countdownContainer = document.getElementById('countdown-container');
+        let isMoving = false;
+        
+        document.addEventListener('mousemove', (e) => {
+            const rect = countdownContainer.getBoundingClientRect();
+            const distance = 20; // Distance to move
+        
+            if (
+                e.clientX > rect.left - distance &&
+                e.clientX < rect.right + distance &&
+                e.clientY > rect.top - distance &&
+                e.clientY < rect.bottom + distance
+            ) {
+                if (!isMoving) {
+                    isMoving = true;
+                    let newTop = rect.top;
+                    let newLeft = rect.left;
+        
+                    if (e.clientY < window.innerHeight / 2) {
+                        newTop = Math.min(window.innerHeight - rect.height, rect.top + distance);
+                    } else {
+                        newTop = Math.max(0, rect.top - distance);
+                    }
+        
+                    if (e.clientX < window.innerWidth / 2) {
+                        newLeft = Math.min(window.innerWidth - rect.width, rect.left + distance);
+                    } else {
+                        newLeft = Math.max(0, rect.left - distance);
+                    }
+        
+                    countdownContainer.style.transition = 'all 0.3s ease-out';
+                    countdownContainer.style.top = `${newTop}px`;
+                    countdownContainer.style.left = `${newLeft}px`;
+        
+                    setTimeout(() => {
+                        isMoving = false;
+                        countdownContainer.style.transition = '';
+                    }, 300);
+                }
+            }
+        });
+        </script>
+        <script>
+            // Update the projects section
+            const projectsSection = document.querySelector('#projects .grid');
+            const projectModal = document.getElementById('project-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalImage = document.getElementById('modal-image');
+            const modalDescription = document.getElementById('modal-description');
+            const modalTech = document.getElementById('modal-tech');
+            const modalClose = document.getElementById('modal-close');
+            
+            const projects = [
+                {
+                    title: "School Management System",
+                    description: "Developed using C# and Postgres, this system streamlines school operations. It includes modules for student management, attendance tracking, grade management, and reporting.",
+                    image: "images/James Mwangi Njenga.jpg",
+                    tech: ["C#", "Postgres", "WPF"]
+                },
+                {
+                    title: "Point of Sale System",
+                    description: "A Django-based POS system for efficient retail management. Features include inventory management, sales tracking, and reporting.",
+                    image: "images/James Mwangi Njenga.jpg",
+                    tech: ["Django", "Python", "PostgreSQL", "HTML/CSS"]
+                },
+                {
+                    title: "AI-Powered Chatbot",
+                    description: "Developed an intelligent chatbot using natural language processing. It can answer customer queries, provide product recommendations, and handle basic support tasks.",
+                    image: "images/James Mwangi Njenga.jpg",
+                    tech: ["Python", "NLP", "TensorFlow", "Flask"]
+                },
+                {
+                    title: "Cybersecurity Tool",
+                    description: "Created a tool for network vulnerability assessment and penetration testing. It can scan networks, identify vulnerabilities, and generate detailed reports.",
+                    image: "images/James Mwangi Njenga.jpg",
+                    tech: ["Python", "Networking", "Scapy", "SQLite"]
+                }
+            ];
+            
+            projectsSection.innerHTML = projects.map((project, index) => `
+                <div class="bg-hacker-dark p-6 rounded-lg shadow-lg project-card cursor-pointer" data-project="${index}">
+                    <h3 class="text-xl font-semibold mb-2">${project.title}</h3>
+                    <p class="mb-4">${project.description.substring(0, 100)}...</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm">${project.tech.join(', ')}</span>
+                        <span class="text-hacker-green hover:underline">Learn More</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            projectsSection.addEventListener('click', (e) => {
+                const projectCard = e.target.closest('.project-card');
+                if (projectCard) {
+                    const projectIndex = projectCard.dataset.project;
+                    const project = projects[projectIndex];
+                    
+                    modalTitle.textContent = project.title;
+                    modalImage.src = project.image;
+                    modalImage.alt = project.title;
+                    modalDescription.textContent = project.description;
+                    modalTech.innerHTML = project.tech.map(tech => `<span class="inline-block bg-green-800 text-white px-2 py-1 rounded mr-2 mb-2">${tech}</span>`).join('');
+                    
+                    projectModal.classList.remove('hidden');
+                }
+            });
+            
+            modalClose.addEventListener('click', () => {
+                projectModal.classList.add('hidden');
+            });
+            
+            projectModal.addEventListener('click', (e) => {
+                if (e.target === projectModal) {
+                    projectModal.classList.add('hidden');
+                }
+            });
+            </script>
 </body>
 </html>
